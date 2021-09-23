@@ -1,0 +1,19 @@
+{
+  "name": "project-atelier-system-design",
+  "version": "1.0.0",
+  "description": "API Routes for Product Overview",
+  "scripts": {
+    "server": "npx nodemon server/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "express": "^4.17.1",
+    "jquery": "^3.1.1",
+    "mocha": "^9.1.1",
+    "mysql": "^4.1.1",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
+  }
+}
