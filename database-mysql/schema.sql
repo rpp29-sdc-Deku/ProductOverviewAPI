@@ -4,7 +4,7 @@ USE atelier_product_overview;
 
 CREATE TABLE IF NOT EXISTS category (
   id int(11) AUTO_INCREMENT primary key,
-  name varchar(255)
+  category varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS product (
@@ -18,12 +18,12 @@ CREATE TABLE IF NOT EXISTS product (
 
 CREATE TABLE IF NOT EXISTS feature_name (
   id int(11) AUTO_INCREMENT primary key,
-  name varchar(255)
+  feature_name varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS feature_value (
   id int(11) AUTO_INCREMENT primary key,
-  name varchar(255)
+  feature_value varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS product_feature (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS product_feature (
 
 CREATE TABLE IF NOT EXISTS colorway (
   id int(11) AUTO_INCREMENT primary key,
-  name varchar(255)
+  name varchar(52)
 );
 
 CREATE TABLE IF NOT EXISTS style (
