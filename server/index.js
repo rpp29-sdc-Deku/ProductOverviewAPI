@@ -41,10 +41,9 @@ app.get('/products/:product_id/styles', (req, res) => {
 });
 
 app.post('/related-products', (req, res) => {
-  console.log('REQUEST PARAMS ====== ', req.body);
-  const productId = [1, 2, 3, 4];
-  getRelated(productId).then((results) => {
-    res.send(results);
+  const { productIds } = req.body;
+  getRelated(productIds).then((relatedProducts) => {
+    res.send(relatedProducts);
   }).catch((err) => {
     res.status(404).send(err.message);
   });
@@ -53,3 +52,7 @@ app.post('/related-products', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`);
 });
+
+module.export = {
+  app
+}
