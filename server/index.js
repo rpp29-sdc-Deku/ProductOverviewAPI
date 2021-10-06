@@ -53,6 +53,7 @@ app.post('/related-products', (req, res) => {
   getRelated(productIds).then(([[relatedProductDetails], productFeatures]) => {
     relatedProductDetails.forEach(product => {
       const features = [];
+      product.photos = [{thumbnail_url: product.photos}];
       productFeatures.forEach(feature => {
         if (product.id === feature.product_id) {
           delete feature.product_id;
