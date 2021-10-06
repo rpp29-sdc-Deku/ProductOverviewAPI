@@ -74,19 +74,21 @@ describe('PRODUCT OVERVIEW API CALLS', () => {
     });
   })
 
-  describe(`POST /related-products`, () => {
-    let response;
+  // describe(`POST /related-products`, () => {
+  //   let response;
 
-    beforeEach(async () => {
-      response = await request.post(`/related-products`,  {
-        "productIds": [13, 99, 888]
-      });
-    });
+  //   beforeEach(async () => {
+  //     response = await request.post(`/related-products`,  {
+  //       "body": {
+  //         "productIds": [33, 66, 99]
+  //       }
+  //     });
+  //   })
 
-    it('Should return an array of related items.',  () => {
-      console.log('RESPONSE ======= ', response.body);
-      expect(response.body).to.be.an('array');
-    })
-  })
+  //   it('Should return an array of related items.',  () => {
+  //     console.log('RESPONSE ======= ', response.body);
+  //     expect(response.body).to.be.an('array');
+  //   })
+  // })
 
 })

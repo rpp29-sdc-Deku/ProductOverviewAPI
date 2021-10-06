@@ -25,9 +25,17 @@ app.get('/products/:product_id', (req, res) => {
 app.get('/products/:product_id/styles', (req, res) => {
   const productId = req.params.product_id;
   getStyles(productId).then(([styles]) => {
-    return addPhotos(styles)
+    if (styles.length < 1) {
+      return null
+    } else {
+      return addPhotos(styles)
+    }
   }).then(styles => {
-    return addSkus(styles)
+    if(!styles) {
+      return [null]
+    } else {
+      return addSkus(styles)
+    }
   }).then(([completedStyles])  => {
     const productStyles = {
       product_id: productId,
@@ -42,8 +50,18 @@ app.get('/products/:product_id/styles', (req, res) => {
 
 app.post('/related-products', (req, res) => {
   const { productIds } = req.body;
-  getRelated(productIds).then((relatedProducts) => {
-    res.send(relatedProducts);
+  getRelated(productIds).then(([[relatedProductDetails], productFeatures]) => {
+    relatedProductDetails.forEach(product => {
+      const features = [];
+      productFeatures.forEach(feature => {
+        if (product.id === feature.product_id) {
+          delete feature.product_id;
+          features.push(feature)
+        }
+      });
+      product.features = features
+    });
+    res.send(relatedProductDetails);
   }).catch((err) => {
     res.status(404).send(err.message);
   });

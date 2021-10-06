@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS category (
 CREATE TABLE IF NOT EXISTS product (
   id int(11) AUTO_INCREMENT primary key,
   category_id int(11),
-  name varchar(255),
+  name varchar(128),
   slogan varchar(560),
   description varchar(1120),
   FOREIGN KEY (category_id) REFERENCES category(id)
@@ -18,12 +18,12 @@ CREATE TABLE IF NOT EXISTS product (
 
 CREATE TABLE IF NOT EXISTS feature_name (
   id int(11) AUTO_INCREMENT primary key,
-  feature_name varchar(255)
+  feature_name varchar(128)
 );
 
 CREATE TABLE IF NOT EXISTS feature_value (
   id int(11) AUTO_INCREMENT primary key,
-  feature_value varchar(255)
+  feature_value varchar(128)
 );
 
 CREATE TABLE IF NOT EXISTS product_feature (
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS photos (
 
 CREATE TABLE IF NOT EXISTS temp_product (
   id int,
-  name varchar(255),
+  name varchar(128),
   slogan varchar(560),
   description varchar(1120),
   category varchar(255),
@@ -113,40 +113,42 @@ CREATE TABLE IF NOT EXISTS temp_styles (
   default_style tinyint
 );
 
+/*
 LOAD DATA LOCAL INFILE
-'/Users/cmonteilh/Desktop/hackreactor/atelier-sdc/product-overview-api/sdc_data/product.csv'
+'../sdc_data/product.csv'
 INTO TABLE temp_product
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 LOAD DATA LOCAL INFILE
-'/Users/cmonteilh/Desktop/hackreactor/atelier-sdc/product-overview-api/sdc_data/features.csv'
+'../sdc_data/features.csv'
 INTO TABLE temp_product_features
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 LOAD DATA LOCAL INFILE
-'/Users/cmonteilh/Desktop/hackreactor/atelier-sdc/product-overview-api/sdc_data/photos.csv'
+'../sdc_data/photos.csv'
 INTO TABLE temp_photos
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 LOAD DATA LOCAL INFILE
-'/Users/cmonteilh/Desktop/hackreactor/atelier-sdc/product-overview-api/sdc_data/skus.csv'
+'../sdc_data/skus.csv'
 INTO TABLE temp_sku
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 LOAD DATA LOCAL INFILE
-'/Users/cmonteilh/Desktop/hackreactor/atelier-sdc/product-overview-api/sdc_data/styles.csv'
+'../sdc_data/styles.csv'
 INTO TABLE temp_styles
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
+*/
 
 
 /*head -n 5 (csv file name)*/

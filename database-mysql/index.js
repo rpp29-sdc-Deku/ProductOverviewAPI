@@ -38,8 +38,12 @@ const getProduct = (productId) => {
         WHERE
           pf.product_id = ${productId}`
     ).then(([productFeatures]) => {
-      product.features = productFeatures;
-      return product
+      if (!product) {
+        return `Product ID ${productId} not found`
+      } else {
+        product.features = productFeatures;
+        return product
+      }
     })
   })
 };
@@ -54,14 +58,14 @@ const getRelated = (productIdsArray) => {
     }
   });
 
-  return db.query(
+  const productDetails = db.query(
     `SELECT
       p.id,
       max(p.name) AS name,
       max(c.category) AS category,
       max(s.original_price) AS original_price,
       max(s.sale_price) AS sale_price,
-      max(ph.thumbnail_url) AS thumbnail_url
+      max(ph.thumbnail_url) AS photos
     FROM
       product p
     LEFT JOIN
@@ -83,12 +87,38 @@ const getRelated = (productIdsArray) => {
     (${idString})
     GROUP BY
       p.id`
-  ).then(([productsDetails]) => {
-    return productsDetails;
+  ).then((results) => {
+    return results;
+  });
+
+  const productFeatures = db.query(`
+    SELECT
+      pf.product_id,
+      fn.feature,
+      fv.value
+    FROM
+      product_feature pf
+    JOIN
+      feature_name fn
+    ON
+      pf.feature_name = fn.id
+    JOIN
+      feature_value fv
+    ON
+      pf.feature_value = fv.id
+    WHERE
+      pf.product_id
+    IN
+      (${idString})
+  `).then(([results]) => {
+    return results;
   })
+
+  return Promise.all([productDetails, productFeatures])
 };
 
 const getStyles = (productId) => {
+  const s = productId.toString();
   return styleDetails = db.query(
     `SELECT DISTINCT
       s.default_style AS 'default?',
@@ -103,9 +133,12 @@ const getStyles = (productId) => {
     ON
       s.colorway_id = c.id
     WHERE
-      s.product_id=${productId}
-    `
-  );
+      s.product_id= ${s}`
+  ).catch(err => {
+    if (err) {
+      return `DATABASE ERROR: getStyles: ${err}`
+    }
+  });
 };
 
 const addPhotos = (styles) => {
@@ -138,7 +171,11 @@ const addPhotos = (styles) => {
       style.photos = photos;
     })
    return [styles, styleIds];
-  })
+  }).catch(err => {
+    if (err) {
+      return `DATABASE ERROR: getStyles: ${err}`
+    }
+  });
 };
 
 
@@ -159,8 +196,6 @@ const addSkus = (styles) => {
     IN
       (${styleIds})`
   ).then(([allSkus]) => {
-    console.log('STYLES IN DB ========== ', styles[0]);
-    console.log('ALL SKUSSS ================== ', allSkus);
     styles[0].forEach(style => {
       style.skus = {}
       allSkus.forEach(sku => {
@@ -172,9 +207,12 @@ const addSkus = (styles) => {
         }
       })
     });
-    console.log('STYLES AFTER ITERATIONS ========= ', styles);
     return styles;
-  })
+  }).catch(err => {
+    if (err) {
+      return `DATABASE ERROR: getStyles: ${err}`
+    }
+  });
 
 }
 
