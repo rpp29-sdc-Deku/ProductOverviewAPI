@@ -74,45 +74,6 @@ CREATE TABLE IF NOT EXISTS photos (
   FOREIGN KEY (style_id) REFERENCES style(id)
 );
 
-CREATE TABLE IF NOT EXISTS temp_product (
-  id int,
-  name varchar(128),
-  slogan varchar(560),
-  description varchar(1120),
-  category varchar(255),
-  default_price decimal(10,2)
-);
-
-CREATE TABLE IF NOT EXISTS temp_product_features (
-  id int,
-  product_id int,
-  feature varchar(55),
-  value varchar(55)
-);
-
-CREATE TABLE IF NOT EXISTS temp_photos (
-  id int,
-  styleId int,
-  url varchar(255),
-  thumbnail_url varchar(255)
-);
-
-CREATE TABLE IF NOT EXISTS temp_sku (
-  id int,
-  styleId int,
-  size varchar(10),
-  quantity int
-);
-
-CREATE TABLE IF NOT EXISTS temp_styles (
-  id int,
-  productId int,
-  name varchar(55),
-  sale_price decimal(10,2),
-  original_price decimal(10,2),
-  default_style tinyint
-);
-
 /*
 LOAD DATA LOCAL INFILE
 '../sdc_data/product.csv'
