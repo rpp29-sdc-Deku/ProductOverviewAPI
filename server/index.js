@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
 });
 
 // verification for loader-io
-app.get('/loaderio-39c51960f869f5122d7d73c79ce5253d/', (req, res) => {
-  res.status(200).send('loaderio-39c51960f869f5122d7d73c79ce5253d')
+app.get('/loaderio-698701bb22a52bcf73beca1b2002d32e/', (req, res) => {
+  res.status(200).send('loaderio-698701bb22a52bcf73beca1b2002d32e')
 })
 
 app.get('/products/:product_id', (req, res) => {
