@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const loader = require('../tests/loader.json');
 const { getProduct, getStyles, getRelated, addPhotos, addSkus } = require('../database-mysql/index.js');
 const app = express();
 
@@ -16,6 +17,11 @@ app.get('/', (req, res) => {
 // verification for loader-io
 app.get('/loaderio-698701bb22a52bcf73beca1b2002d32e/', (req, res) => {
   res.status(200).send('loaderio-698701bb22a52bcf73beca1b2002d32e')
+})
+
+// test data for loader.io tests
+app.get('/loaderio/', (req, res) => {
+  res.json(loader);
 })
 
 app.get('/products/:product_id', (req, res) => {
