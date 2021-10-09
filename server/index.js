@@ -13,6 +13,11 @@ app.get('/', (req, res) => {
   res.send('HELLO WORLD!');
 });
 
+// verification for loader-io
+app.get('/loaderio-39c51960f869f5122d7d73c79ce5253d/', (req, res) => {
+  res.status(200).send('loaderio-39c51960f869f5122d7d73c79ce5253d')
+})
+
 app.get('/products/:product_id', (req, res) => {
   const productId = req.params.product_id;
   getProduct(productId).then((results) => {
